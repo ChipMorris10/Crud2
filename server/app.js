@@ -1,4 +1,6 @@
 // *** main dependencies *** //
+var dotenv = require('dotenv');
+dotenv.load();
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -10,7 +12,7 @@ var swig = require('swig');
 
 // *** routes *** //
 var routes = require('./routes/index.js');
-
+var cars = require('./routes/api.js');   // now have a new route which I will use instead of ./routes/index.js
 
 // *** express instance *** //
 var app = express();
@@ -35,7 +37,8 @@ app.use(express.static(path.join(__dirname, '../client/public')));
 
 
 // *** main routes *** //
-app.use('/', routes);
+app.use('/', routes);  // this line refers to ('./routes/api.js'); which we aren't using
+app.use('/api/', cars); // this refers to var cars = require('./routes/api.js');  which we are using
 
 
 // catch 404 and forward to error handler
